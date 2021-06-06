@@ -15,11 +15,11 @@ public class ApplicationManager {
     public void init() {
         System.setProperty("webdriver.gecko.driver", "src/main/resources/geckodriver.exe");
         driver = new FirefoxDriver();
+        driver.get("http://localhost/addressbook/");
         groupHelper = new GroupHelper(driver);
         contactHelper = new ContactHelper(driver);
         navigationHelper = new NavigationHelper(driver);
         sessionHelper = new SessionHelper(driver);
-
         sessionHelper.login("admin", "secret");
     }
 

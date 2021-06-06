@@ -3,31 +3,25 @@ package appmanager;
 import dto.*;
 import org.openqa.selenium.*;
 
-public class ContactHelper {
-    private WebDriver driver;
+public class ContactHelper extends HelperBase{
 
     public ContactHelper(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
     }
 
     public void submitContactCreation() {
-        driver.findElement(By.cssSelector("input:nth-child(87)")).click();
+       click(By.cssSelector("input:nth-child(87)"));
     }
 
     public void fillTheContactCreationForm(ContactData contactData) {
-        driver.findElement(By.name("firstname")).click();
-        driver.findElement(By.name("firstname")).sendKeys(contactData.getFirstName());
-        driver.findElement(By.name("middlename")).click();
-        driver.findElement(By.name("middlename")).sendKeys(contactData.getSecondName());
-        driver.findElement(By.name("lastname")).click();
-        driver.findElement(By.name("lastname")).sendKeys(contactData.getLastName());
-        driver.findElement(By.name("mobile")).click();
-        driver.findElement(By.name("mobile")).sendKeys(contactData.getMobilePhone());
-        driver.findElement(By.name("address2")).click();
-        driver.findElement(By.name("address2")).sendKeys(contactData.getSecondAddress());
+        type(By.name("firstname"), contactData.getFirstName());
+        type(By.name("middlename"), contactData.getSecondName());
+        type(By.name("lastname"), contactData.getLastName());
+        type(By.name("mobile"), contactData.getMobilePhone());
+        type(By.name("address2"), contactData.getSecondAddress());
     }
 
     public void createNewContact() {
-        driver.findElement(By.linkText("add new")).click();
+        click(By.linkText("add new"));
     }
 }
