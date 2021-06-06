@@ -22,4 +22,21 @@ public class GroupHelper extends HelperBase {
     public void createNewGroup() {
         click(By.name("new"));
     }
+
+
+    public void selectGroup() {
+        click(By.name("selected[]"));
+    }
+
+    public void initGroupModification() {
+        click(By.name("edit"));
+    }
+
+    public void submitGroupModification() {
+        click(By.name("update"));
+    }
+
+    public void returnToGroupPage() {
+        click(By.linkText("group page"));
+    }
 }
