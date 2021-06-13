@@ -3,6 +3,8 @@ package appmanager;
 import dto.*;
 import org.openqa.selenium.*;
 
+import java.util.*;
+
 public class GroupHelper extends HelperBase {
 
     public GroupHelper(WebDriver driver) {
@@ -56,5 +58,16 @@ public class GroupHelper extends HelperBase {
 
     public int getGroupCount() {
         return driver.findElements(By.name("selected[]")).size();
+    }
+
+    public List<GroupData> getGroupList() {
+        List<GroupData> groups = new ArrayList<>();
+        List<WebElement> elements = driver.findElements(By.cssSelector("span.group"));
+        for (WebElement element: elements){
+            String name = element.getText();
+            GroupData group = new GroupData(name, null, null);
+            groups.add(group);
+        }
+        return groups;
     }
 }
