@@ -29,12 +29,13 @@ public class ContactHelper extends HelperBase {
         }
     }
 
-    public void createNewContact() {
+    public void initCreateNewContact() {
         click(By.linkText("add new"));
     }
 
     public void editContact() {
-        click(By.xpath("//*[@id=\"maintable\"]/tbody/tr[5]/td[8]/a/img"));
+
+        click(By.xpath("//*[@id=\"maintable\"]/tbody/tr[2]/td[8]/a/img"));
     }
 
     public void confirmModification() {
@@ -51,5 +52,15 @@ public class ContactHelper extends HelperBase {
 
     public void acceptDeletion() {
         driver.switchTo().alert().accept();
+    }
+
+    public boolean isThereContactPresent() {
+        return isElementPresent(By.name("selected[]"));
+    }
+
+    public void createContact(ContactData contact) {
+        initCreateNewContact();
+        fillContactForm(contact, true);
+        submitContactCreation();
     }
 }
