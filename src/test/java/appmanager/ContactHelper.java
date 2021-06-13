@@ -1,7 +1,9 @@
 package appmanager;
 
 import dto.*;
+import org.junit.*;
 import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.*;
 
 public class ContactHelper extends HelperBase {
 
@@ -13,12 +15,18 @@ public class ContactHelper extends HelperBase {
         click(By.cssSelector("input:nth-child(87)"));
     }
 
-    public void fillTheContactCreationForm(ContactData contactData) {
+    public void fillContactForm(ContactData contactData, Boolean creation) {
         type(By.name("firstname"), contactData.getFirstName());
         type(By.name("middlename"), contactData.getSecondName());
         type(By.name("lastname"), contactData.getLastName());
         type(By.name("mobile"), contactData.getMobilePhone());
         type(By.name("address2"), contactData.getSecondAddress());
+
+        if (creation) {
+            new Select(driver.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+        } else {
+            Assert.assertFalse(isElementPresent(By.name("new_group")));
+        }
     }
 
     public void createNewContact() {
@@ -41,7 +49,7 @@ public class ContactHelper extends HelperBase {
         click(By.xpath("//*[@id=\"content\"]/form[2]/div[2]/input"));
     }
 
-    public void acceptDeletion(){
+    public void acceptDeletion() {
         driver.switchTo().alert().accept();
     }
 }
