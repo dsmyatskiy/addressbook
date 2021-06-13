@@ -8,6 +8,7 @@ public class ContactModificationTest extends TestBase{
     @Test
     public void testContactModification() {
         app.getNavigationHelper().goToHomePage();
+        int before = app.getGroupHelper().getGroupCount();
         if (!app.getContactHelper().isThereContactPresent()) {
             app.getContactHelper().createContact(new ContactData("ron", "makkeyn", "ho", "1232412", "sovetskaya St", "my"));
         }
@@ -21,5 +22,8 @@ public class ContactModificationTest extends TestBase{
                 null), false);
         app.getContactHelper().confirmModification();
         app.getNavigationHelper().goToHomePage();
+        int after = app.getGroupHelper().getGroupCount();
+
+        Assert.assertEquals(after, before);
     }
 }

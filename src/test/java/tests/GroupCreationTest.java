@@ -8,7 +8,13 @@ public class GroupCreationTest extends TestBase {
     @Test
     public void groupCreationTest() {
         app.getNavigationHelper().goToGroupPage();
-        app.getGroupHelper().createGroup(new GroupData("my", null, "2"));
-    }
+        int before = app.getGroupHelper().getGroupCount();
 
+        app.getGroupHelper().createGroup(new GroupData("my", null, "2"));
+        app.getNavigationHelper().goToGroupPage();
+
+        int after = app.getGroupHelper().getGroupCount();
+
+        Assert.assertEquals(after, before + 1);
+    }
 }

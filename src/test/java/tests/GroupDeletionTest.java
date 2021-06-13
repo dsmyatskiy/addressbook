@@ -11,9 +11,14 @@ public class GroupDeletionTest extends TestBase{
         if (!app.getGroupHelper().isThereGroupPresent()) {
             app.getGroupHelper().createGroup(new GroupData("my", null, "2"));
         }
+
+        int before = app.getGroupHelper().getGroupCount();
         app.getNavigationHelper().goToGroupPage();
         app.getGroupHelper().selectGroup();
         app.getGroupHelper().deleteGroup();
         app.getGroupHelper().returnToGroupPage();
+
+        int after = app.getGroupHelper().getGroupCount();
+        Assert.assertEquals(after, before - 1);
     }
 }
