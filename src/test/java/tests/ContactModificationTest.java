@@ -1,9 +1,10 @@
 package tests;
 
+import appmanager.*;
 import dto.*;
 import org.junit.*;
 
-public class ContactModificationTest extends TestBase{
+public class ContactModificationTest extends TestBase {
 
     @Test
     public void testContactModification() {

@@ -1,5 +1,6 @@
 package tests;
 
+import appmanager.*;
 import dto.*;
 import org.junit.*;
 

@@ -1,9 +1,10 @@
 package tests;
 
+import appmanager.*;
 import dto.*;
 import org.junit.*;
 
-public class GroupDeletionTest extends TestBase{
+public class GroupDeletionTest extends TestBase {
 
     @Test
     public void testGroupDeletion() {

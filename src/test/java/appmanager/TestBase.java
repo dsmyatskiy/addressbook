@@ -1,6 +1,5 @@
-package tests;
+package appmanager;
 
-import appmanager.*;
 import org.junit.*;
 import org.openqa.selenium.remote.*;
 
