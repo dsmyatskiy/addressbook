@@ -2,10 +2,11 @@ package tests;
 
 import appmanager.*;
 import org.junit.*;
+import org.openqa.selenium.remote.*;
 
 public class TestBase {
 
-    protected final ApplicationManager app = new ApplicationManager();
+    protected final ApplicationManager app = new ApplicationManager(BrowserType.CHROME);
 
     @Before
     public void setUp() {

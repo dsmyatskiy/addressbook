@@ -1,7 +1,9 @@
 package appmanager;
 
 import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.*;
 import org.openqa.selenium.firefox.*;
+import org.openqa.selenium.remote.*;
 
 public class ApplicationManager {
     WebDriver driver;
@@ -9,12 +11,23 @@ public class ApplicationManager {
     private NavigationHelper navigationHelper;
     private ContactHelper contactHelper;
     private GroupHelper groupHelper;
+    private final String browser;
 
+    public ApplicationManager(String browser) {
+        this.browser = browser;
+    }
 
 
     public void init() {
         System.setProperty("webdriver.gecko.driver", "src/main/resources/geckodriver.exe");
-        driver = new FirefoxDriver();
+        if (browser.equals(BrowserType.FIREFOX)){
+            System.setProperty("webdriver.gecko.driver", "src/main/resources/geckodriver.exe");
+            driver = new FirefoxDriver();
+        } else {
+            System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver.exe");
+            driver = new ChromeDriver();
+        }
+
         driver.get("http://localhost/addressbook/");
         groupHelper = new GroupHelper(driver);
         contactHelper = new ContactHelper(driver);
