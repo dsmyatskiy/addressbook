@@ -1,18 +1,18 @@
 package appmanager;
 
-import org.junit.*;
 import org.openqa.selenium.remote.*;
+import org.testng.annotations.*;
 
 public class TestBase {
 
-    protected final ApplicationManager app = new ApplicationManager(BrowserType.CHROME);
+    protected final static ApplicationManager app = new ApplicationManager(BrowserType.CHROME);
 
-    @Before
+    @BeforeSuite
     public void setUp() {
         app.init();
     }
 
-    @After
+    @AfterSuite
     public void tearDown() {
         app.stop();
     }

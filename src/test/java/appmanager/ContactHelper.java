@@ -1,9 +1,9 @@
 package appmanager;
 
 import dto.*;
-import org.junit.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.*;
+import org.testng.*;
 
 import java.util.*;
 

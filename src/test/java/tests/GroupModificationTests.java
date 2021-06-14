@@ -2,7 +2,8 @@ package tests;
 
 import appmanager.*;
 import dto.*;
-import org.junit.*;
+import org.testng.*;
+import org.testng.annotations.*;
 
 import java.util.*;
 
