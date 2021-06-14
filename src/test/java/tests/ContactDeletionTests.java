@@ -4,6 +4,8 @@ import appmanager.*;
 import dto.*;
 import org.junit.*;
 
+import java.util.*;
+
 public class ContactDeletionTests extends TestBase {
 
     @Test
@@ -12,14 +14,17 @@ public class ContactDeletionTests extends TestBase {
         if (!app.getContactHelper().isThereContactPresent()) {
             app.getContactHelper().createContact(new ContactData("ron", "makkeyn", "ho", "1232412", "sovetskaya St", "my"));
         }
-        int before = app.getGroupHelper().getGroupCount();
+        List<ContactData> before = app.getContactHelper().getContactList();
         app.getNavigationHelper().goToHomePage();
         app.getContactHelper().selectContact();
         app.getContactHelper().deleteContact();
         app.getContactHelper().acceptDeletion();
         app.getNavigationHelper().goToHomePage();
 
-        int after = app.getGroupHelper().getGroupCount();
-        Assert.assertEquals(after, before - 1);
+        List<ContactData> after = app.getContactHelper().getContactList();
+        Assert.assertEquals(after.size(), before.size() - 1);
+
+        before.remove(0);
+        Assert.assertEquals(before, after);
     }
 }

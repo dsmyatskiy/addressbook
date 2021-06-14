@@ -5,6 +5,8 @@ import org.junit.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.*;
 
+import java.util.*;
+
 public class ContactHelper extends HelperBase {
 
     public ContactHelper(WebDriver driver) {
@@ -62,5 +64,20 @@ public class ContactHelper extends HelperBase {
         initCreateNewContact();
         fillContactForm(contact, true);
         submitContactCreation();
+    }
+
+    public List<ContactData> getContactList() {
+        List<ContactData> contacts = new ArrayList<>();
+        List<WebElement> elements = driver.findElements(By.name("entry"));
+        for (WebElement element : elements) {
+            String[] listOfText = element.getText().split("\\s");
+            String firstName = listOfText[1];
+            String lastName = listOfText[0];
+            Integer id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
+//            System.out.println(firstName + " /// " + lastName + " /// " + id);
+            ContactData contact = new ContactData(firstName, lastName, id);
+            contacts.add(contact);
+        }
+        return contacts;
     }
 }
