@@ -56,20 +56,20 @@ public class ContactHelper extends HelperBase {
         return isElementPresent(By.name("selected[]"));
     }
 
-    public void createContact(ContactData contact) {
+    public void create(ContactData contact) {
         initCreateNewContact();
         fillContactForm(contact, true);
         submitContactCreation();
     }
 
-    public void deleteContact() {
+    public void delete() {
         selectContact();
         click(By.xpath("//*[@id=\"content\"]/form[2]/div[2]/input"));
         acceptDeletion();
         returnToHomePage();
     }
 
-    public void modifyContact(ContactData contact) {
+    public void modify(ContactData contact) {
         editContact();
         fillContactForm(contact, false);
         confirmModification();
@@ -83,7 +83,7 @@ public class ContactHelper extends HelperBase {
         click(By.linkText("home"));
     }
 
-    public List<ContactData> getContactList() {
+    public List<ContactData> list() {
         List<ContactData> contacts = new ArrayList<>();
         List<WebElement> elements = driver.findElements(By.name("entry"));
         for (WebElement element : elements) {
