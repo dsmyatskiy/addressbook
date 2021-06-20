@@ -14,7 +14,7 @@ public class GroupCreationTest extends TestBase {
         app.goTo().groupPage();
 
         List<GroupData> before = app.group().list();
-        GroupData group = new GroupData("my", null, "2");
+        GroupData group = new GroupData().withName("my");
         app.group().create(group);
         app.goTo().groupPage();
         List<GroupData> after = app.group().list();
@@ -26,7 +26,7 @@ public class GroupCreationTest extends TestBase {
                 max = g.getId();
             }
         }
-        group.setId(max);
+        group.withId(max);
         before.add(group);
         Comparator<? super GroupData> byId = (Comparator.comparingInt(GroupData::getId));
         before.sort(byId);

@@ -3,10 +3,13 @@ package dto;
 import java.util.*;
 
 public class ContactData {
-    private final String firstName;
-    private final String secondName;
-    private final String lastName;
-    private final String mobilePhone;
+    private String firstName;
+    private String secondName;
+    private String lastName;
+    private String mobilePhone;
+    private String secondAddress;
+    private String group;
+    private Integer id;
 
     @Override
     public String toString() {
@@ -14,20 +17,6 @@ public class ContactData {
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 '}';
-    }
-
-    private final String secondAddress;
-    private String group;
-    private Integer id;
-
-    public ContactData(String firstName, String secondName, String lastName, String mobilePhone, String secondAddress, String group) {
-        this.firstName = firstName;
-        this.secondName = secondName;
-        this.lastName = lastName;
-        this.mobilePhone = mobilePhone;
-        this.secondAddress = secondAddress;
-        this.group = group;
-        this.id = null;
     }
 
     @Override
@@ -41,16 +30,6 @@ public class ContactData {
     @Override
     public int hashCode() {
         return Objects.hash(firstName, lastName);
-    }
-
-    public ContactData(String firstName, String lastName, Integer id) {
-        this.firstName = firstName;
-        this.secondName = null;
-        this.lastName = lastName;
-        this.mobilePhone = null;
-        this.secondAddress = null;
-        this.group = null;
-        this.id = id;
     }
 
     public String getFirstName() {
@@ -77,11 +56,42 @@ public class ContactData {
         return group;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
     public Integer getId() {
         return id;
+    }
+
+    public ContactData withId(Integer id) {
+        this.id = id;
+        return this;
+    }
+
+    public ContactData withFirstName(String firstName) {
+        this.firstName = firstName;
+        return this;
+    }
+
+    public ContactData withSecondName(String secondName) {
+        this.secondName = secondName;
+        return this;
+    }
+
+    public ContactData withLastName(String lastName) {
+        this.lastName = lastName;
+        return this;
+    }
+
+    public ContactData withMobilePhone(String mobilePhone) {
+        this.mobilePhone = mobilePhone;
+        return this;
+    }
+
+    public ContactData withSecondAddress(String secondAddress) {
+        this.secondAddress = secondAddress;
+        return this;
+    }
+
+    public ContactData withGroup(String group) {
+        this.group = group;
+        return this;
     }
 }

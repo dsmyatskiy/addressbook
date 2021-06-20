@@ -3,8 +3,10 @@ package dto;
 import java.util.*;
 
 public class GroupData {
-    private final String name;
-    private final String header;
+    private String name;
+    private String header;
+    private String footer;
+    private Integer id;
 
     @Override
     public boolean equals(Object o) {
@@ -19,21 +21,12 @@ public class GroupData {
         return Objects.hash(name);
     }
 
-    private final String footer;
-    private Integer id;
-
-    public GroupData(String name, String header, String footer, Integer id) {
-        this.name = name;
-        this.header = header;
-        this.footer = footer;
-        this.id = id;
-    }
-
-    public GroupData(String name, String header, String footer) {
-        this.name = name;
-        this.header = header;
-        this.footer = footer;
-        this.id = Integer.MAX_VALUE;
+    @Override
+    public String toString() {
+        return "GroupData{" +
+                "name='" + name + '\'' +
+                ", id='" + id + '\'' +
+                '}';
     }
 
     public String getName() {
@@ -52,16 +45,23 @@ public class GroupData {
         return id;
     }
 
-    public void setId (Integer id) {
+    public GroupData withId(Integer id) {
         this.id = id;
+        return this;
     }
 
-    @Override
-    public String toString() {
-        return "GroupData{" +
-                "name='" + name + '\'' +
-                ", id='" + id + '\'' +
-                '}';
+    public GroupData withName(String name) {
+        this.name = name;
+        return this;
     }
 
+    public GroupData withHeader(String header) {
+        this.header = header;
+        return this;
+    }
+
+    public GroupData withFooter(String footer) {
+        this.footer = footer;
+        return this;
+    }
 }
