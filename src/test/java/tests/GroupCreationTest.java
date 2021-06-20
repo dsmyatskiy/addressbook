@@ -2,10 +2,12 @@ package tests;
 
 import appmanager.*;
 import dto.*;
-import org.testng.*;
 import org.testng.annotations.*;
 
 import java.util.*;
+
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.*;
 
 public class GroupCreationTest extends TestBase {
 
@@ -13,15 +15,14 @@ public class GroupCreationTest extends TestBase {
     public void groupCreationTest() {
         app.goTo().groupPage();
 
-        Set<GroupData> before = app.group().all();
+        Groups before = app.group().all();
         GroupData group = new GroupData().withName("my");
         app.group().create(group);
         app.goTo().groupPage();
-        Set<GroupData> after = app.group().all();
-        Assert.assertEquals(after.size(), before.size() + 1);
+        Groups after = app.group().all();
+        assertThat(after.size(), equalTo(before.size() + 1));
 
-        group.withId(after.stream().mapToInt(GroupData::getId).max().getAsInt());
-        before.add(group);
-        Assert.assertEquals(before, after);
+        assertThat(after, equalTo(
+                before.withAdded(group.withId(after.stream().mapToInt(GroupData::getId).max().getAsInt()))));
     }
 }

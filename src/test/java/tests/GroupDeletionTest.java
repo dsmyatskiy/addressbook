@@ -2,10 +2,10 @@ package tests;
 
 import appmanager.*;
 import dto.*;
-import org.testng.*;
 import org.testng.annotations.*;
 
-import java.util.*;
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.*;
 
 public class GroupDeletionTest extends TestBase {
 
@@ -19,15 +19,12 @@ public class GroupDeletionTest extends TestBase {
 
     @Test
     public void testGroupDeletion() {
-        Set<GroupData> before = app.group().all();
+        Groups before = app.group().all();
         GroupData deletedGroup = before.iterator().next();
         app.group().delete(deletedGroup);
+        Groups after = app.group().all();
 
-        Set<GroupData> after = app.group().all();
-
-        Assert.assertEquals(after.size(), before.size() - 1);
-
-        before.remove(deletedGroup);
-        Assert.assertEquals(before, after);
+        assertThat(after.size(), equalTo(before.size() - 1));
+        assertThat(after, equalTo(before.without(deletedGroup)));
     }
 }

@@ -2,17 +2,17 @@ package tests;
 
 import appmanager.*;
 import dto.*;
-import org.testng.*;
 import org.testng.annotations.*;
 
-import java.util.*;
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.*;
 
 public class ContactCreationTest extends TestBase {
 
     @Test
     public void contactCreateTest() {
         app.goTo().homePage();
-        Set<ContactData> before = app.contact().all();
+        Contacts before = app.contact().all();
         ContactData contact = new ContactData().withFirstName("ron")
                 .withSecondName("makkeyn")
                 .withLastName("ho")
@@ -21,12 +21,10 @@ public class ContactCreationTest extends TestBase {
                 .withGroup("my");
         app.contact().create(contact);
         app.goTo().homePage();
+        Contacts after = app.contact().all();
 
-        Set<ContactData> after = app.contact().all();
-        Assert.assertEquals(after.size(), before.size() + 1);
-
-        contact.withId(after.stream().mapToInt(ContactData::getId).max().getAsInt());
-        before.add(contact);
-        Assert.assertEquals(before, after);
+        assertThat(after.size(), equalTo(before.size() + 1));
+        assertThat(after, equalTo(
+                before.withAdded(contact.withId(after.stream().mapToInt(ContactData::getId).max().getAsInt()))));
     }
 }
