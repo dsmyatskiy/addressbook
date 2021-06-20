@@ -35,11 +35,6 @@ public class ContactHelper extends HelperBase {
         click(By.linkText("add new"));
     }
 
-    public void editContact() {
-
-        click(By.xpath("//*[@id=\"maintable\"]/tbody/tr[2]/td[8]/a/img"));
-    }
-
     public void confirmModification() {
         click(By.name("update"));
     }
@@ -52,6 +47,15 @@ public class ContactHelper extends HelperBase {
         driver.switchTo().alert().accept();
     }
 
+
+    private void selectContactById(int id) {
+        driver.findElement(By.cssSelector("input[value='" + id + "']")).click();
+    }
+
+    private void deleteSelectedGroup() {
+        click(By.cssSelector("input[value='Delete']"));
+    }
+
     public boolean isThereContactPresent() {
         return isElementPresent(By.name("selected[]"));
     }
@@ -62,18 +66,22 @@ public class ContactHelper extends HelperBase {
         submitContactCreation();
     }
 
-    public void delete() {
-        selectContact();
-        click(By.xpath("//*[@id=\"content\"]/form[2]/div[2]/input"));
+    public void delete(ContactData contact) {
+        selectContactById(contact.getId());
+        deleteSelectedGroup();
         acceptDeletion();
         returnToHomePage();
     }
 
     public void modify(ContactData contact) {
-        editContact();
+        editContactById(contact.getId());
         fillContactForm(contact, false);
         confirmModification();
         returnToHomePage();
+    }
+
+    private void editContactById(int id) {
+        click(By.xpath("//a[@href='edit.php?id=" + id + "']"));
     }
 
     public void returnToHomePage() {
@@ -83,8 +91,8 @@ public class ContactHelper extends HelperBase {
         click(By.linkText("home"));
     }
 
-    public List<ContactData> list() {
-        List<ContactData> contacts = new ArrayList<>();
+    public Set<ContactData> all() {
+        Set<ContactData> contacts = new HashSet<ContactData>();
         List<WebElement> elements = driver.findElements(By.name("entry"));
         for (WebElement element : elements) {
             String[] listOfText = element.getText().split("\\s");

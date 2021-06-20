@@ -13,24 +13,15 @@ public class GroupCreationTest extends TestBase {
     public void groupCreationTest() {
         app.goTo().groupPage();
 
-        List<GroupData> before = app.group().list();
+        Set<GroupData> before = app.group().all();
         GroupData group = new GroupData().withName("my");
         app.group().create(group);
         app.goTo().groupPage();
-        List<GroupData> after = app.group().list();
+        Set<GroupData> after = app.group().all();
         Assert.assertEquals(after.size(), before.size() + 1);
 
-        int max = 0;
-        for (GroupData g : after) {
-            if (g.getId() > max) {
-                max = g.getId();
-            }
-        }
-        group.withId(max);
+        group.withId(after.stream().mapToInt(GroupData::getId).max().getAsInt());
         before.add(group);
-        Comparator<? super GroupData> byId = (Comparator.comparingInt(GroupData::getId));
-        before.sort(byId);
-        after.sort(byId);
         Assert.assertEquals(before, after);
     }
 }
