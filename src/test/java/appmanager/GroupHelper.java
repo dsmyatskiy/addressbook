@@ -52,6 +52,20 @@ public class GroupHelper extends HelperBase {
         submitGroupCreation();
     }
 
+    public void modifyGroup(int index, GroupData group) {
+        selectGroup(index);
+        initGroupModification();
+        fillTheGroupForm(group);
+        submitGroupModification();
+        returnToGroupPage();
+    }
+
+    public void deleteGroup(int index) {
+        selectGroup(index);
+        deleteGroup();
+        returnToGroupPage();
+    }
+
     public boolean isThereGroupPresent() {
         return isElementPresent(By.name("selected[]"));
     }
@@ -63,7 +77,7 @@ public class GroupHelper extends HelperBase {
     public List<GroupData> getGroupList() {
         List<GroupData> groups = new ArrayList<>();
         List<WebElement> elements = driver.findElements(By.cssSelector("span.group"));
-        for (WebElement element: elements){
+        for (WebElement element : elements) {
             String name = element.getText();
             Integer id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
             GroupData group = new GroupData(name, null, null, id);

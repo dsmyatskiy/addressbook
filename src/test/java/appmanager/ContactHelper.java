@@ -48,10 +48,6 @@ public class ContactHelper extends HelperBase {
         click(By.name("selected[]"));
     }
 
-    public void deleteContact() {
-        click(By.xpath("//*[@id=\"content\"]/form[2]/div[2]/input"));
-    }
-
     public void acceptDeletion() {
         driver.switchTo().alert().accept();
     }
@@ -64,6 +60,27 @@ public class ContactHelper extends HelperBase {
         initCreateNewContact();
         fillContactForm(contact, true);
         submitContactCreation();
+    }
+
+    public void deleteContact() {
+        selectContact();
+        click(By.xpath("//*[@id=\"content\"]/form[2]/div[2]/input"));
+        acceptDeletion();
+        returnToHomePage();
+    }
+
+    public void modifyContact(ContactData contact) {
+        editContact();
+        fillContactForm(contact, false);
+        confirmModification();
+        returnToHomePage();
+    }
+
+    public void returnToHomePage() {
+        if (isElementPresent(By.id("maintable"))) {
+            return;
+        }
+        click(By.linkText("home"));
     }
 
     public List<ContactData> getContactList() {
