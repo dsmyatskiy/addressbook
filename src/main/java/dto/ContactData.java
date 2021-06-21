@@ -12,7 +12,6 @@ public class ContactData {
     private String home;
 
 
-
     private String work;
     private Integer id;
 
@@ -61,11 +60,11 @@ public class ContactData {
         return group;
     }
 
-    public String getWork() {
+    public String getWorkPhone() {
         return work;
     }
 
-    public String getHome() {
+    public String getHomePhone() {
         return home;
     }
 
@@ -108,7 +107,7 @@ public class ContactData {
         return this;
     }
 
-    public ContactData withHome(String home) {
+    public ContactData withHomePhone(String home) {
         this.home = home;
         return this;
     }

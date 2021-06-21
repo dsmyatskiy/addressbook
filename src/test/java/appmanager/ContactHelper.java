@@ -19,6 +19,8 @@ public class ContactHelper extends HelperBase {
 
     public void fillContactForm(ContactData contactData, Boolean creation) {
         type(By.name("firstname"), contactData.getFirstName());
+        type(By.name("home"), contactData.getHomePhone());
+        type(By.name("work"), contactData.getHomePhone());
         type(By.name("middlename"), contactData.getSecondName());
         type(By.name("lastname"), contactData.getLastName());
         type(By.name("mobile"), contactData.getMobilePhone());
@@ -106,14 +108,19 @@ public class ContactHelper extends HelperBase {
             return new Contacts(contactsCache);
         }
         contactsCache = new Contacts();
-        List<WebElement> elements = driver.findElements(By.name("entry"));
-        for (WebElement element : elements) {
-            String[] listOfText = element.getText().split("\\s");
-            String firstName = listOfText[1];
-            String lastName = listOfText[0];
-            Integer id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-//            System.out.println(firstName + " /// " + lastName + " /// " + id);
-            contactsCache.add( new ContactData().withFirstName(firstName).withLastName(lastName).withId(id));
+        List<WebElement> rows = driver.findElements(By.name("entry"));
+        for (WebElement row : rows) {
+            List<WebElement> cells = row.findElements(By.tagName("td"));
+            int id = Integer.parseInt(cells.get(0).findElement(By.tagName("input")).getAttribute("value"));
+            String lastName = cells.get(1).getText();
+            String firstName = cells.get(2).getText();
+            String[] phones = cells.get(5).getText().split("\n");
+            contactsCache.add(new ContactData().withFirstName(firstName)
+                    .withLastName(lastName)
+                    .withHomePhone(phones[0])
+                    .withMobilePhone(phones[1])
+                    .withWorkPhone(phones[2])
+                    .withId(id));
         }
         return new Contacts(contactsCache);
     }
@@ -127,7 +134,7 @@ public class ContactHelper extends HelperBase {
         String work = driver.findElement(By.name("work")).getAttribute("value");
         driver.navigate().back();
         return new ContactData().withId(contact.getId()).withFirstName(firstName).withLastName(lastName)
-                .withHome(home).withMobilePhone(mobile).withWorkPhone(work);
+                .withHomePhone(home).withMobilePhone(mobile).withWorkPhone(work);
     }
 
     private void initContactModificationById(Integer id) {
