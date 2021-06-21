@@ -60,6 +60,10 @@ public class ContactHelper extends HelperBase {
         return isElementPresent(By.name("selected[]"));
     }
 
+    public int count() {
+        return driver.findElements(By.name("selected[]")).size();
+    }
+
     public void create(ContactData contact) {
         initCreateNewContact();
         fillContactForm(contact, true);
