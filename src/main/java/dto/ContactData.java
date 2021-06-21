@@ -9,6 +9,11 @@ public class ContactData {
     private String mobilePhone;
     private String secondAddress;
     private String group;
+    private String home;
+
+
+
+    private String work;
     private Integer id;
 
     @Override
@@ -56,6 +61,14 @@ public class ContactData {
         return group;
     }
 
+    public String getWork() {
+        return work;
+    }
+
+    public String getHome() {
+        return home;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -92,6 +105,16 @@ public class ContactData {
 
     public ContactData withGroup(String group) {
         this.group = group;
+        return this;
+    }
+
+    public ContactData withHome(String home) {
+        this.home = home;
+        return this;
+    }
+
+    public ContactData withWorkPhone(String work) {
+        this.work = work;
         return this;
     }
 }
