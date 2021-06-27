@@ -25,6 +25,10 @@ public class ContactHelper extends HelperBase {
         type(By.name("lastname"), contactData.getLastName());
         type(By.name("mobile"), contactData.getMobilePhone());
         type(By.name("address2"), contactData.getSecondAddress());
+        type(By.name("address"), contactData.getAddress());
+        type(By.name("email"), contactData.getEmail());
+        type(By.name("email2"), contactData.getEmail2());
+        type(By.name("email3"), contactData.getEmail3());
 
         if (creation) {
             new Select(driver.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
@@ -114,9 +118,15 @@ public class ContactHelper extends HelperBase {
             int id = Integer.parseInt(cells.get(0).findElement(By.tagName("input")).getAttribute("value"));
             String lastName = cells.get(1).getText();
             String firstName = cells.get(2).getText();
+            String address = cells.get(3).getText();
+            String[] emails = cells.get(4).getText().split("\n");
             String[] phones = cells.get(5).getText().split("\n");
             contactsCache.add(new ContactData().withFirstName(firstName)
                     .withLastName(lastName)
+                    .withAddress(address)
+                    .withEmail(emails[0])
+                    .withEmail2(emails[1])
+                    .withEmail3(emails[2])
                     .withHomePhone(phones[0])
                     .withMobilePhone(phones[1])
                     .withWorkPhone(phones[2])
@@ -132,9 +142,14 @@ public class ContactHelper extends HelperBase {
         String home = driver.findElement(By.name("home")).getAttribute("value");
         String mobile = driver.findElement(By.name("mobile")).getAttribute("value");
         String work = driver.findElement(By.name("work")).getAttribute("value");
+        String address = driver.findElement(By.name("address")).getAttribute("value");
+        String email = driver.findElement(By.name("email")).getAttribute("value");
+        String email2 = driver.findElement(By.name("email2")).getAttribute("value");
+        String email3 = driver.findElement(By.name("email3")).getAttribute("value");
         driver.navigate().back();
         return new ContactData().withId(contact.getId()).withFirstName(firstName).withLastName(lastName)
-                .withHomePhone(home).withMobilePhone(mobile).withWorkPhone(work);
+                .withHomePhone(home).withMobilePhone(mobile).withWorkPhone(work).withAddress(address)
+                .withEmail(email).withEmail2(email2).withEmail3(email3);
     }
 
     private void initContactModificationById(Integer id) {
