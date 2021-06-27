@@ -1,10 +1,15 @@
 package dto;
 
+import com.google.gson.annotations.*;
+
 import java.util.*;
 
 public class GroupData {
+    @Expose
     private String name;
+    @Expose
     private String header;
+    @Expose
     private String footer;
     private Integer id;
 

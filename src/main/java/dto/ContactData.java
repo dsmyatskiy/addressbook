@@ -1,22 +1,38 @@
 package dto;
 
+import com.google.gson.annotations.*;
+
 import java.io.*;
 import java.util.*;
 
 public class ContactData {
+    @Expose
     private String firstName;
+    @Expose
     private String secondName;
+    @Expose
     private String lastName;
+    @Expose
     private String mobilePhone;
+    @Expose
     private String secondAddress;
+    @Expose
     private String group;
+    @Expose
     private String home;
+    @Expose
     private String work;
+    @Expose
     private String email;
+    @Expose
     private String email2;
+    @Expose
     private String email3;
+    @Expose
     private String address;
+    @Expose
     private File photo;
+    @Expose
     private Integer id;
 
     @Override

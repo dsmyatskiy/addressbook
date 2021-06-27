@@ -1,34 +1,39 @@
 package tests;
 
 import appmanager.*;
+import com.google.gson.*;
+import com.google.gson.reflect.*;
 import dto.*;
 import org.testng.annotations.*;
 
 import java.io.*;
+import java.util.*;
+import java.util.stream.*;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
 
 public class ContactCreationTest extends TestBase {
 
-    @Test
-    public void contactCreateTest() {
+    @DataProvider
+    public Iterator<Object[]> validContacts() throws IOException {
+        BufferedReader reader = new BufferedReader(new FileReader("src/test/resources/contacts.json"));
+        String json = "";
+        String line = reader.readLine();
+        while (line != null) {
+            json += line;
+            line = reader.readLine();
+        }
+        Gson gson = new Gson();
+        List<ContactData> contacts = gson.fromJson(json, new TypeToken<List<ContactData>>() {
+        }.getType());
+        return contacts.stream().map((g) -> new Object[]{g}).collect(Collectors.toList()).iterator();
+    }
+
+    @Test(dataProvider = "validContacts")
+    public void contactCreateTest(ContactData contact) {
         app.goTo().homePage();
         Contacts before = app.contact().all();
-        File photo = new File("src/test/resources/picture.png");
-        ContactData contact = new ContactData().withFirstName("ron")
-                .withFirstName("ron")
-                .withSecondName("makkeyn")
-                .withLastName("ho")
-                .withMobilePhone("1232412")
-                .withWorkPhone("1111")
-                .withHomePhone("2214")
-                .withEmail("email1")
-                .withEmail2("email2")
-                .withEmail3("email3")
-                .withSecondAddress("sovetskaya St")
-                .withGroup("my")
-                .withPhoto(photo);
         app.contact().create(contact);
         app.goTo().homePage();
         assertThat(app.contact().count(), equalTo(before.size() + 1));

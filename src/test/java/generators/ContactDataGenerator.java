@@ -1,6 +1,7 @@
 package generators;
 
 import com.beust.jcommander.*;
+import com.google.gson.*;
 import dto.*;
 
 import java.io.*;
@@ -14,6 +15,9 @@ public class ContactDataGenerator {
 
     @Parameter(names = "-f", description = "Target file = ")
     public String file;
+
+    @Parameter(names = "-d", description = "Format")
+    public String format;
 
     public static void main(String[] args) throws IOException {
         ContactDataGenerator generator = new ContactDataGenerator();
@@ -30,16 +34,28 @@ public class ContactDataGenerator {
 
     private void run() throws IOException {
         List<ContactData> contacts = generateContacts(count);
-        save(contacts, new File(file));
+        if (format.equals("csv")) {
+            saveAsCsv(contacts, new File(file));
+        } else {
+            saveAsJson(contacts, new File(file));
+        }
     }
 
-    private void save(List<ContactData> contacts, File file) throws IOException {
+    private void saveAsCsv(List<ContactData> contacts, File file) throws IOException {
         Writer writer = new FileWriter(file);
         for (ContactData contact : contacts) {
             writer.write(String.format("%s;%s;%s;%s;%s;%s;%s;%s;%s\n", contact.getFirstName(), contact.getLastName(),
                     contact.getMobilePhone(), contact.getHomePhone(), contact.getWorkPhone(),
                     contact.getAddress(), contact.getEmail(), contact.getEmail2(), contact.getEmail3()));
         }
+        writer.close();
+    }
+
+    private void saveAsJson(List<ContactData> contacts, File file) throws IOException {
+        Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
+        Writer writer = new FileWriter(file);
+        String json = gson.toJson(contacts);
+        writer.write(json);
         writer.close();
     }
 
@@ -55,7 +71,8 @@ public class ContactDataGenerator {
                     .withAddress("Lenina " + i)
                     .withEmail("1email" + i)
                     .withEmail2("2email" + i)
-                    .withEmail3("1email" + i));
+                    .withEmail3("1email" + i)
+                    .withGroup("my"));
         }
         return contacts;
     }

@@ -1,0 +1,122 @@
+[
+  {
+    "firstName": "test 0",
+    "lastName": "ivanov 0",
+    "mobilePhone": "7927125620",
+    "group": "my",
+    "home": "927125620",
+    "work": "927125520",
+    "email": "1email0",
+    "email2": "2email0",
+    "email3": "1email0",
+    "address": "Lenina 0"
+  },
+  {
+    "firstName": "test 1",
+    "lastName": "ivanov 1",
+    "mobilePhone": "7927125621",
+    "group": "my",
+    "home": "927125621",
+    "work": "927125521",
+    "email": "1email1",
+    "email2": "2email1",
+    "email3": "1email1",
+    "address": "Lenina 1"
+  },
+  {
+    "firstName": "test 2",
+    "lastName": "ivanov 2",
+    "mobilePhone": "7927125622",
+    "group": "my",
+    "home": "927125622",
+    "work": "927125522",
+    "email": "1email2",
+    "email2": "2email2",
+    "email3": "1email2",
+    "address": "Lenina 2"
+  },
+  {
+    "firstName": "test 3",
+    "lastName": "ivanov 3",
+    "mobilePhone": "7927125623",
+    "group": "my",
+    "home": "927125623",
+    "work": "927125523",
+    "email": "1email3",
+    "email2": "2email3",
+    "email3": "1email3",
+    "address": "Lenina 3"
+  },
+  {
+    "firstName": "test 4",
+    "lastName": "ivanov 4",
+    "mobilePhone": "7927125624",
+    "group": "my",
+    "home": "927125624",
+    "work": "927125524",
+    "email": "1email4",
+    "email2": "2email4",
+    "email3": "1email4",
+    "address": "Lenina 4"
+  },
+  {
+    "firstName": "test 5",
+    "lastName": "ivanov 5",
+    "mobilePhone": "7927125625",
+    "group": "my",
+    "home": "927125625",
+    "work": "927125525",
+    "email": "1email5",
+    "email2": "2email5",
+    "email3": "1email5",
+    "address": "Lenina 5"
+  },
+  {
+    "firstName": "test 6",
+    "lastName": "ivanov 6",
+    "mobilePhone": "7927125626",
+    "group": "my",
+    "home": "927125626",
+    "work": "927125526",
+    "email": "1email6",
+    "email2": "2email6",
+    "email3": "1email6",
+    "address": "Lenina 6"
+  },
+  {
+    "firstName": "test 7",
+    "lastName": "ivanov 7",
+    "mobilePhone": "7927125627",
+    "group": "my",
+    "home": "927125627",
+    "work": "927125527",
+    "email": "1email7",
+    "email2": "2email7",
+    "email3": "1email7",
+    "address": "Lenina 7"
+  },
+  {
+    "firstName": "test 8",
+    "lastName": "ivanov 8",
+    "mobilePhone": "7927125628",
+    "group": "my",
+    "home": "927125628",
+    "work": "927125528",
+    "email": "1email8",
+    "email2": "2email8",
+    "email3": "1email8",
+    "address": "Lenina 8"
+  },
+  {
+    "firstName": "test 9",
+    "lastName": "ivanov 9",
+    "mobilePhone": "7927125629",
+    "group": "my",
+    "home": "927125629",
+    "work": "927125529",
+    "email": "1email9",
+    "email2": "2email9",
+    "email3": "1email9",
+    "address": "Lenina 9"
+  }
+]

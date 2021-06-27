@@ -1,11 +1,14 @@
 package tests;
 
 import appmanager.*;
+import com.google.gson.*;
+import com.google.gson.reflect.*;
 import dto.*;
 import org.testng.annotations.*;
 
 import java.io.*;
 import java.util.*;
+import java.util.stream.*;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
@@ -14,15 +17,17 @@ public class GroupCreationTest extends TestBase {
 
     @DataProvider
     public Iterator<Object[]> validGroups() throws IOException {
-        List<Object[]> list = new ArrayList<>();
-        BufferedReader reader = new BufferedReader(new FileReader("src/test/resources/groups.csv"));
+        BufferedReader reader = new BufferedReader(new FileReader("src/test/resources/groups.json"));
+        String json = "";
         String line = reader.readLine();
         while (line != null) {
-            String[] split = line.split(";");
-            list.add(new Object[]{new GroupData().withName(split[0]).withHeader(split[1]).withFooter(split[2])});
+            json += line;
             line = reader.readLine();
         }
-        return list.iterator();
+        Gson gson = new Gson();
+        List<GroupData> groups = gson.fromJson(json, new TypeToken<List<GroupData>>() {
+        }.getType());
+        return groups.stream().map((g) -> new Object[]{g}).collect(Collectors.toList()).iterator();
     }
 
     @Test(dataProvider = "validGroups")

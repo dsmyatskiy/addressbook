@@ -1,6 +1,7 @@
 package generators;
 
 import com.beust.jcommander.*;
+import com.google.gson.*;
 import dto.*;
 
 import java.io.*;
@@ -13,6 +14,9 @@ public class GroupDataGenerator {
 
     @Parameter(names = "-f", description = "Target file = ")
     public String file;
+
+    @Parameter(names = "-d", description = "Format")
+    public String format;
 
     public static void main(String[] args) throws IOException {
         GroupDataGenerator generator = new GroupDataGenerator();
@@ -29,10 +33,22 @@ public class GroupDataGenerator {
 
     private void run() throws IOException {
         List<GroupData> groups = generateGroups(count);
-        save(groups, new File(file));
+        if (format.equals("csv")) {
+            saveAsCsv(groups, new File(file));
+        } else {
+            saveAsJson(groups, new File(file));
+        }
     }
 
-    private void save(List<GroupData> groups, File file) throws IOException {
+    private void saveAsJson(List<GroupData> groups, File file) throws IOException {
+        Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
+        Writer writer = new FileWriter(file);
+        String json = gson.toJson(groups);
+        writer.write(json);
+        writer.close();
+    }
+
+    private void saveAsCsv(List<GroupData> groups, File file) throws IOException {
         Writer writer = new FileWriter(file);
         for (GroupData group : groups) {
             writer.write(String.format("%s;%s;%s\n", group.getName(), group.getHeader(), group.getFooter()));
