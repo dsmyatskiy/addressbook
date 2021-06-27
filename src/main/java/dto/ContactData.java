@@ -1,5 +1,6 @@
 package dto;
 
+import java.io.*;
 import java.util.*;
 
 public class ContactData {
@@ -15,6 +16,7 @@ public class ContactData {
     private String email2;
     private String email3;
     private String address;
+    private File photo;
     private Integer id;
 
     @Override
@@ -90,6 +92,10 @@ public class ContactData {
         return id;
     }
 
+    public File getPhoto() {
+        return photo;
+    }
+
     public ContactData withId(Integer id) {
         this.id = id;
         return this;
@@ -152,6 +158,11 @@ public class ContactData {
 
     public ContactData withAddress(String address) {
         this.address = address;
+        return this;
+    }
+
+    public ContactData withPhoto(File photo) {
+        this.photo = photo;
         return this;
     }
 }

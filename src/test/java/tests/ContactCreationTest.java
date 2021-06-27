@@ -4,6 +4,8 @@ import appmanager.*;
 import dto.*;
 import org.testng.annotations.*;
 
+import java.io.*;
+
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
 
@@ -13,6 +15,7 @@ public class ContactCreationTest extends TestBase {
     public void contactCreateTest() {
         app.goTo().homePage();
         Contacts before = app.contact().all();
+        File photo = new File("src/test/resources/picture.png");
         ContactData contact = new ContactData().withFirstName("ron")
                 .withFirstName("ron")
                 .withSecondName("makkeyn")
@@ -24,7 +27,8 @@ public class ContactCreationTest extends TestBase {
                 .withEmail2("email2")
                 .withEmail3("email3")
                 .withSecondAddress("sovetskaya St")
-                .withGroup("my");
+                .withGroup("my")
+                .withPhoto(photo);
         app.contact().create(contact);
         app.goTo().homePage();
         assertThat(app.contact().count(), equalTo(before.size() + 1));
